@@ -17,7 +17,6 @@ Instead of considering an issue completely resolved simply because an administra
 
 # 📌 Table of Contents
 
-- [Project Overview](#-project-overview)
 - [Problem Statement](#-problem-statement)
 - [Proposed Solution](#-proposed-solution)
 - [Project Objectives](#-project-objectives)
@@ -44,35 +43,77 @@ Instead of considering an issue completely resolved simply because an administra
 
 ---
 
-# 🌆 Project Overview
+# 📌 Problem Statement
 
-Cities and local communities continuously face civic issues such as damaged roads, broken streetlights, water leakage, blocked pathways, waste accumulation, and accessibility problems.
+Local communities regularly experience civic issues such as damaged roads, broken streetlights, water leakage, waste accumulation, blocked footpaths, accessibility problems, and damaged public infrastructure.
 
-Digital reporting systems can make it easier for citizens to communicate these problems. However, the process should not necessarily end when an authority or administrator marks a complaint as "Resolved".
+Although digital platforms can help citizens report these problems, the reporting process does not always provide a clear mechanism for citizens to verify whether an issue has actually been resolved.
 
-There is a need for a transparent mechanism through which citizens can verify whether the reported problem was actually addressed.
+An issue may be marked as **"Resolved"** after administrative action, while the citizen may still experience the same problem or find that the issue has only been partially addressed.
 
-JanDrishti focuses on this gap.
+JanDrishti aims to address this gap by introducing a **citizen verification stage after administrative resolution**.
 
-The platform creates a complete civic issue lifecycle:
+The platform provides a structured workflow where citizens can:
+
+- Report an issue.
+- Track its progress.
+- View resolution evidence.
+- Verify the claimed resolution.
+- Mark an issue as resolved, partially resolved, or not resolved.
+- Request reopening when the problem has not been adequately addressed.
+
+---
+
+# 💡 Proposed Solution
+
+JanDrishti provides a digital platform connecting citizens and administrators through a transparent civic issue-resolution workflow.
+
+The system consists of two major interfaces:
+
+### 👤 Citizen Portal
+
+Citizens can:
+
+- Register and log in.
+- Report civic issues.
+- Upload photographs.
+- Provide issue descriptions.
+- Select issue categories.
+- Provide location information.
+- Track issue progress.
+- View resolution evidence.
+- Verify the resolution.
+- Request reopening if the issue remains unresolved.
+
+### 🛠️ Admin Portal
+
+Administrators can:
+
+- View submitted issues.
+- Review issue information.
+- Manage reported issues.
+- Update issue status.
+- Add action/resolution details.
+- Upload resolution evidence.
+- Review citizen verification.
+- Reopen disputed issues.
+- Monitor issue statistics.
+
+The central workflow is:
 
 ```text
-Citizen Reports Issue
-        ↓
-Admin Reviews Issue
-        ↓
-Issue Assigned
-        ↓
-Action Taken
-        ↓
-Resolution Evidence Added
-        ↓
+Report
+   ↓
+Review
+   ↓
+Assign
+   ↓
+Action
+   ↓
+Resolution Evidence
+   ↓
 Citizen Verification
-        ↓
- ┌──────────────────────┐
- │                      │
- ▼                      ▼
-Verified            Not Resolved
- │                      │
- ▼                      ▼
-Closed             Reopen / Escalate
+   ↓
+Verified / Not Resolved
+   ↓
+Close / Reopen
