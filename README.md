@@ -115,5 +115,105 @@ Resolution Evidence
 Citizen Verification
    ↓
 Verified / Not Resolved
-   ↓
+```
+## 🎯 Project Objectives
+
+The main objectives of **JanDrishti** are:
+
+1. Develop a web-based platform for reporting local civic issues.
+2. Enable citizens to submit issue descriptions, photographs, and location information.
+3. Provide administrators with a centralized dashboard to review and manage reported issues.
+4. Maintain a structured lifecycle for every civic issue from reporting to final closure.
+5. Allow administrators to update issue status and provide evidence of corrective action.
+6. Introduce a citizen verification mechanism for claimed resolutions.
+7. Allow citizens to mark issues as **Resolved, Partially Resolved, or Not Resolved**.
+8. Enable unresolved or partially resolved issues to be reopened for further action.
+9. Maintain a transparent history of issue reports, administrative actions, resolution evidence, and citizen verification.
+10. Provide basic analytics for monitoring civic issues, resolutions, and verification outcomes.
+11. Encourage active citizen participation in identifying and monitoring local civic problems.
+12. Evaluate the usability and effectiveness of the platform through real-user testing.
+13. Support participatory civic management in alignment with **SDG 11 – Sustainable Cities and Communities**. :contentReference[oaicite:0]{index=0}
+
+---
+
+## ✨ Key Features
+
+### 👤 Citizen Module
+
+- User registration and login
+- Secure user authentication
+- Report new civic issues
+- Select issue category
+- Add detailed issue description
+- Upload photographic evidence
+- Provide issue location
+- View submitted issues
+- Track issue status
+- View issue history
+- View administrator updates
+- View resolution evidence
+- Verify claimed resolutions
+- Mark an issue as:
+  - ✅ **Resolved**
+  - ⚠️ **Partially Resolved**
+  - ❌ **Not Resolved**
+- Request reopening of unresolved issues
+
+---
+
+### 🛠️ Admin Module
+
+- Secure administrator authentication
+- Centralized issue management dashboard
+- View all reported civic issues
+- Search and filter reported issues
+- View issue details
+- View uploaded photographs
+- View issue locations
+- Update issue status
+- Add action and resolution details
+- Upload resolution evidence
+- Review citizen verification responses
+- Reopen disputed or unresolved issues
+- Monitor overall issue statistics
+
+---
+
+### 📍 Location & Mapping
+
+- Location-based civic issue reporting
+- Interactive map for reported issues
+- Display issue markers based on location
+- View issue information through map markers
+- Map-based visualization of civic problems
+- Leaflet.js integration
+- OpenStreetMap integration
+
+---
+
+### 🔍 Resolution Verification
+
+The central feature of JanDrishti is the **Citizen Verification Workflow**.
+
+After an administrator marks an issue as resolved, the citizen can verify the result before the issue is considered completely closed.
+
+```text
+Issue Reported
+      ↓
+Admin Action
+      ↓
+Resolution Evidence
+      ↓
+Citizen Verification
+      ↓
+ ┌───────────────┐
+ │               │
+ ▼               ▼
+Verified      Not Resolved
+ │               │
+ ▼               ▼
+Closed        Reopened
+
+↓
 Close / Reopen
+```
