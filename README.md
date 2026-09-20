@@ -181,13 +181,13 @@ The main objectives of **JanDrishti** are:
 
 ### 📍 Location & Mapping
 
-- Location-based civic issue reporting
-- Interactive map for reported issues
-- Display issue markers based on location
-- View issue information through map markers
-- Map-based visualization of civic problems
-- Leaflet.js integration
-- OpenStreetMap integration
+- Location-based civic issue reporting.
+- Interactive map for reported issues.
+- Display issue markers based on location.
+- View issue information through map markers.
+- Map-based visualization of civic problems.
+- Leaflet.js integration.
+- OpenStreetMap integration.
 
 ---
 
