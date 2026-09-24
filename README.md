@@ -8,7 +8,6 @@ JanDrishti is a web-based civic technology platform designed to make local civic
 
 Citizens can report problems such as potholes, broken streetlights, water leakage, garbage accumulation, blocked public spaces, and other infrastructure issues. Administrators can review these reports, manage their progress, take corrective action, and provide resolution evidence.
 
-Addition of mermaid
 
 The key feature of JanDrishti is **Citizen Verification of Claimed Resolutions**.
 
