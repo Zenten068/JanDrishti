@@ -1,45 +1,58 @@
-import { useEffect, useState } from "react";
-import { supabase } from "./lib/supabaseClient";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router";
 
-function App() {
-  const [connected, setConnected] = useState(false);
-  const [error, setError] = useState("");
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
-  useEffect(() => {
-    testConnection();
-  }, []);
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
-  async function testConnection() {
-    const { error } = await supabase
-      .from("profiles")
-      .select("id")
-      .limit(1);
+function ProtectedRoute({ children }) {
+  const { user, loading } = useAuth();
 
-    if (error) {
-      console.log(error);
-      setError(error.message);
-      return;
-    }
-
-    setConnected(true);
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+function AppRoutes() {
   return (
-    <div style={{ padding: "40px", fontFamily: "Arial" }}>
-      <h1>JanDrishti</h1>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
 
-      {connected && (
-        <p style={{ color: "green" }}>
-          ✅ Supabase connected successfully!
-        </p>
-      )}
+      <Route path="/register" element={<Register />} />
 
-      {error && (
-        <p style={{ color: "red" }}>
-          ❌ Supabase connection error: {error}
-        </p>
-      )}
-    </div>
+      <Route path="/login" element={<Login />} />
+
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
