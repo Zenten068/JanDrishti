@@ -1,299 +1,418 @@
 import {
-    AlertTriangle,
-    CheckCircle2,
-    Clock3,
-    FileText,
-    MapPin,
-    Plus,
-    ShieldCheck,
-    UserRound,
+  AlertTriangle,
+  ArrowRight,
+  CheckCircle2,
+  Clock3,
+  FileText,
+  LocateFixed,
+  MapPin,
+  Plus,
+  Search,
+  ShieldCheck,
+  UserRound,
 } from "lucide-react";
+
 import { useAuth } from "../context/AuthContext";
-import { logoutUser } from "../Services/authService";
+import { logoutUser } from "../services/authService";
 import { useNavigate } from "react-router";
 
+import "../styles/dashboard.css";
+
 export default function Dashboard() {
-    const { user, profile } = useAuth();
-    const navigate = useNavigate();
-
-    const handleLogout = async () => {
-        await logoutUser();
-        navigate("/login");
-    };
+  const { user, profile } = useAuth();
+  const navigate = useNavigate();
 
-    const userName = profile?.name || user?.user_metadata?.name || "Citizen";
-
-    return (
-        <div className="app-shell">
+  const userName =
+    profile?.name ||
+    user?.user_metadata?.name ||
+    "Citizen";
 
-            {/* Sidebar */}
-            <aside className="sidebar">
-
-                <div className="brand">
-                    <div className="brand-icon">
-                        JD
-                    </div>
-
-                    <div>
-                        <h2>JanDrishti</h2>
-                        <span>Civic Platform</span>
-                    </div>
-                </div>
-
-                <nav className="sidebar-nav">
-
-                    <button className="nav-item active">
-                        <FileText size={19} />
-                        Dashboard
-                    </button>
-
-                    <button
-                        className="nav-item"
-                        onClick={() => navigate("/report")}
-                    >
-                        <Plus size={19} />
-                        Report Issue
-                    </button>
-
-                    <button className="nav-item">
-                        <AlertTriangle size={19} />
-                        My Reports
-                    </button>
-
-                    <button className="nav-item">
-                        <MapPin size={19} />
-                        Issue Map
-                    </button>
-
-                    <button className="nav-item">
-                        <UserRound size={19} />
-                        Profile
-                    </button>
-
-                </nav>
-
-                <div className="sidebar-bottom">
-
-                    <div className="role-box">
-                        <ShieldCheck size={18} />
-
-                        <div>
-                            <span>Logged in as</span>
-                            <strong>
-                                {profile?.role || "citizen"}
-                            </strong>
-                        </div>
-                    </div>
-
-                    <button
-                        className="logout-btn"
-                        onClick={handleLogout}
-                    >
-                        Logout
-                    </button>
-
-                </div>
-
-            </aside>
-
-            {/* Main Content */}
-            <main className="main-content">
-
-                {/* Topbar */}
-                <header className="topbar">
-
-                    <div>
-                        <span className="page-label">
-                            Citizen Dashboard
-                        </span>
-
-                        <h1>Welcome back, {userName} 👋</h1>
-                    </div>
-
-                    <div className="profile-circle">
-                        {userName.charAt(0).toUpperCase()}
-                    </div>
-
-                </header>
-
-                {/* Welcome Banner */}
-                <section className="welcome-card">
-
-                    <div>
-                        <span className="welcome-tag">
-                            MAKE YOUR CITY BETTER
-                        </span>
-
-                        <h2>
-                            See an issue?
-                            <br />
-                            <span>Report it.</span>
-                        </h2>
-
-                        <p>
-                            Help your community report civic problems
-                            and track them until they are actually resolved.
-                        </p>
-
-                        <button
-                            className="primary-btn"
-                            onClick={() => navigate("/report")}
-                        >
-                            <Plus size={19} />
-                            Report an Issue
-                        </button>
-                    </div>
-
-                    <div className="welcome-visual">
-                        <MapPin size={80} strokeWidth={1.3} />
-                    </div>
-
-                </section>
-
-                {/* Stats */}
-                <section className="stats-grid">
-
-                    <div className="stat-card">
-                        <div className="stat-icon blue">
-                            <FileText size={21} />
-                        </div>
-
-                        <div>
-                            <span>Total Reports</span>
-                            <strong>0</strong>
-                        </div>
-                    </div>
-
-                    <div className="stat-card">
-                        <div className="stat-icon orange">
-                            <Clock3 size={21} />
-                        </div>
-
-                        <div>
-                            <span>In Progress</span>
-                            <strong>0</strong>
-                        </div>
-                    </div>
-
-                    <div className="stat-card">
-                        <div className="stat-icon green">
-                            <CheckCircle2 size={21} />
-                        </div>
-
-                        <div>
-                            <span>Resolved</span>
-                            <strong>0</strong>
-                        </div>
-                    </div>
-
-                    <div className="stat-card">
-                        <div className="stat-icon red">
-                            <AlertTriangle size={21} />
-                        </div>
-
-                        <div>
-                            <span>Needs Verification</span>
-                            <strong>0</strong>
-                        </div>
-                    </div>
-
-                </section>
-
-                {/* Bottom Grid */}
-                <section className="dashboard-grid">
-
-                    {/* Recent Reports */}
-                    <div className="dashboard-card">
-
-                        <div className="card-header">
-                            <div>
-                                <h3>Recent Reports</h3>
-                                <p>Your latest civic issue reports</p>
-                            </div>
-
-                            <button className="text-btn">
-                                View All
-                            </button>
-                        </div>
-
-                        <div className="empty-state">
-
-                            <div className="empty-icon">
-                                <FileText size={25} />
-                            </div>
-
-                            <h4>No reports yet</h4>
-
-                            <p>
-                                Your reported civic issues will appear here.
-                            </p>
-
-                            <button
-                                className="secondary-btn"
-                                onClick={() => navigate("/report")}
-                            >
-                                Report your first issue
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    {/* Quick Actions */}
-                    <div className="dashboard-card">
-
-                        <div className="card-header">
-                            <div>
-                                <h3>Quick Actions</h3>
-                                <p>Common things you can do</p>
-                            </div>
-                        </div>
-
-                        <div className="quick-actions">
-
-                            <button
-                                className="quick-action"
-                                onClick={() => navigate("/report")}
-                            >
-                                <div className="quick-icon">
-                                    <Plus size={20} />
-                                </div>
-
-                                <div>
-                                    <strong>Report an Issue</strong>
-                                    <span>Submit a new civic complaint</span>
-                                </div>
-                            </button>
-
-                            <button className="quick-action">
-                                <div className="quick-icon">
-                                    <MapPin size={20} />
-                                </div>
-
-                                <div>
-                                    <strong>Explore Issue Map</strong>
-                                    <span>See reported problems nearby</span>
-                                </div>
-                            </button>
-
-                            <button className="quick-action">
-                                <div className="quick-icon">
-                                    <CheckCircle2 size={20} />
-                                </div>
-
-                                <div>
-                                    <strong>Verify Resolution</strong>
-                                    <span>Confirm whether an issue is fixed</span>
-                                </div>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-            </main>
+  const handleLogout = async () => {
+    await logoutUser();
+    navigate("/login");
+  };
+
+  return (
+    <div className="jan-page">
+
+      {/* ================= NAVBAR ================= */}
+
+      <header className="jan-navbar">
+
+        <div className="jan-container navbar-inner">
+
+          <div className="jan-brand">
+            <div className="brand-mark">JD</div>
+
+            <div>
+              <h2>JanDrishti</h2>
+              <span>Civic Issue Platform</span>
+            </div>
+          </div>
+
+          <nav className="main-nav">
+
+            <button className="nav-link active">
+              Dashboard
+            </button>
+
+            <button
+              className="nav-link"
+              onClick={() => navigate("/report")}
+            >
+              Report Issue
+            </button>
+
+            <button className="nav-link">
+              My Reports
+            </button>
+
+            <button className="nav-link">
+              Issue Map
+            </button>
+
+          </nav>
+
+          <div className="navbar-actions">
+
+            <button className="search-button">
+              <Search size={18} />
+            </button>
+
+            <div className="user-menu">
+              <div className="user-avatar">
+                {userName.charAt(0).toUpperCase()}
+              </div>
+
+              <div className="user-info">
+                <strong>{userName}</strong>
+                <span>{profile?.role || "Citizen"}</span>
+              </div>
+            </div>
+
+            <button
+              className="logout-link"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+
+          </div>
+
         </div>
-    );
+
+      </header>
+
+      {/* ================= HERO ================= */}
+
+      <main>
+
+        <section className="hero-section">
+
+          <div className="jan-container hero-content">
+
+            <div className="hero-copy">
+
+              <span className="hero-eyebrow">
+                SMART CIVIC REPORTING
+              </span>
+
+              <h1>
+                Make your
+                <br />
+                <span>neighbourhood better.</span>
+              </h1>
+
+              <p>
+                Report local civic problems, track their progress,
+                and verify whether they were actually resolved.
+              </p>
+
+              <div className="hero-buttons">
+
+                <button
+                  className="hero-primary"
+                  onClick={() => navigate("/report")}
+                >
+                  <Plus size={19} />
+                  Report an Issue
+                </button>
+
+                <button className="hero-secondary">
+                  <MapPin size={18} />
+                  Explore Issues
+                </button>
+
+              </div>
+
+              <div className="hero-note">
+                <ShieldCheck size={15} />
+                Your report helps improve your local community.
+              </div>
+
+            </div>
+
+            {/* Civic visual */}
+            <div className="hero-visual">
+
+              <div className="city-card">
+
+                <div className="city-top">
+                  <span>LIVE CIVIC VIEW</span>
+                  <span className="live-dot">● LIVE</span>
+                </div>
+
+                <div className="city-map">
+
+                  <div className="map-road road-one"></div>
+                  <div className="map-road road-two"></div>
+                  <div className="map-road road-three"></div>
+
+                  <div className="map-pin pin-one">
+                    <MapPin size={25} />
+                  </div>
+
+                  <div className="map-pin pin-two">
+                    <MapPin size={21} />
+                  </div>
+
+                  <div className="map-pin pin-three">
+                    <MapPin size={20} />
+                  </div>
+
+                  <div className="map-location">
+                    <LocateFixed size={17} />
+                    Your area
+                  </div>
+
+                </div>
+
+                <div className="map-footer">
+                  <div>
+                    <strong>Nearby Issues</strong>
+                    <span>Community reports</span>
+                  </div>
+
+                  <div className="nearby-count">
+                    12
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* ================= STATS ================= */}
+
+        <section className="stats-section">
+
+          <div className="jan-container stats-row">
+
+            <div className="stat-item">
+              <div className="stat-symbol">
+                <FileText size={20} />
+              </div>
+
+              <div>
+                <span>Total Reports</span>
+                <strong>0</strong>
+              </div>
+            </div>
+
+            <div className="stat-item">
+              <div className="stat-symbol">
+                <Clock3 size={20} />
+              </div>
+
+              <div>
+                <span>In Progress</span>
+                <strong>0</strong>
+              </div>
+            </div>
+
+            <div className="stat-item">
+              <div className="stat-symbol">
+                <CheckCircle2 size={20} />
+              </div>
+
+              <div>
+                <span>Resolved</span>
+                <strong>0</strong>
+              </div>
+            </div>
+
+            <div className="stat-item">
+              <div className="stat-symbol">
+                <AlertTriangle size={20} />
+              </div>
+
+              <div>
+                <span>Awaiting Verification</span>
+                <strong>0</strong>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* ================= CONTENT ================= */}
+
+        <section className="dashboard-section">
+
+          <div className="jan-container content-grid">
+
+            {/* MAP */}
+
+            <div className="content-panel map-panel">
+
+              <div className="panel-heading">
+
+                <div>
+                  <span className="panel-label">
+                    COMMUNITY
+                  </span>
+
+                  <h2>Issues near you</h2>
+
+                  <p>
+                    Explore civic problems reported by citizens.
+                  </p>
+                </div>
+
+                <button className="panel-action">
+                  View map
+                  <ArrowRight size={15} />
+                </button>
+
+              </div>
+
+              <div className="large-map">
+
+                <div className="map-grid-lines"></div>
+
+                <div className="map-road big-road-one"></div>
+                <div className="map-road big-road-two"></div>
+                <div className="map-road big-road-three"></div>
+
+                <div className="large-pin pin-a">
+                  <MapPin size={23} />
+                </div>
+
+                <div className="large-pin pin-b">
+                  <MapPin size={23} />
+                </div>
+
+                <div className="large-pin pin-c">
+                  <MapPin size={23} />
+                </div>
+
+                <div className="map-label label-a">
+                  Pothole
+                </div>
+
+                <div className="map-label label-b">
+                  Garbage
+                </div>
+
+                <div className="map-label label-c">
+                  Streetlight
+                </div>
+
+                <button className="map-locate">
+                  <LocateFixed size={16} />
+                  Locate me
+                </button>
+
+              </div>
+
+            </div>
+
+            {/* RECENT REPORTS */}
+
+            <div className="content-panel reports-panel">
+
+              <div className="panel-heading">
+
+                <div>
+                  <span className="panel-label">
+                    YOUR ACTIVITY
+                  </span>
+
+                  <h2>Recent reports</h2>
+
+                  <p>
+                    Keep track of your submitted issues.
+                  </p>
+                </div>
+
+                <button className="panel-action">
+                  View all
+                  <ArrowRight size={15} />
+                </button>
+
+              </div>
+
+              <div className="reports-empty">
+
+                <div className="empty-symbol">
+                  <FileText size={25} />
+                </div>
+
+                <h3>No reports yet</h3>
+
+                <p>
+                  When you report a civic issue,
+                  its progress will appear here.
+                </p>
+
+                <button
+                  className="empty-button"
+                  onClick={() => navigate("/report")}
+                >
+                  <Plus size={16} />
+                  Report your first issue
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+      {/* ================= FOOTER ================= */}
+
+      <footer className="jan-footer">
+
+        <div className="jan-container footer-inner">
+
+          <div>
+            <strong>JanDrishti</strong>
+            <span>
+              Report. Resolve. Verify.
+            </span>
+          </div>
+
+          <div className="footer-right">
+            <span>SDG 11 · Sustainable Cities & Communities</span>
+
+            <button onClick={handleLogout}>
+              Sign out
+            </button>
+          </div>
+
+        </div>
+
+      </footer>
+
+    </div>
+  );
 }
