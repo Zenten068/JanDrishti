@@ -15,9 +15,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { logoutUser } from "../services/authService";
 import { useNavigate } from "react-router";
-
 import "../styles/dashboard.css";
-
 export default function Dashboard() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
