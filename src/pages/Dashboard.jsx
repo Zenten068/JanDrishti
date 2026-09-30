@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   AlertTriangle,
   ArrowRight,
@@ -9,13 +11,16 @@ import {
   Plus,
   Search,
   ShieldCheck,
-  UserRound,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 import { useAuth } from "../context/AuthContext";
 import { logoutUser } from "../services/authService";
 import { useNavigate } from "react-router";
+
 import "../styles/dashboard.css";
+
 export default function Dashboard() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
@@ -25,13 +30,32 @@ export default function Dashboard() {
     user?.user_metadata?.name ||
     "Citizen";
 
+  /* ================= THEME ================= */
+
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("jandrishti-theme") === "dark";
+  });
+
+  const toggleTheme = () => {
+    const newTheme = !darkMode;
+
+    setDarkMode(newTheme);
+
+    localStorage.setItem(
+      "jandrishti-theme",
+      newTheme ? "dark" : "light"
+    );
+  };
+
+  /* ================= LOGOUT ================= */
+
   const handleLogout = async () => {
     await logoutUser();
     navigate("/login");
   };
 
   return (
-    <div className="jan-page">
+    <div className={`jan-page ${darkMode ? "dark-mode" : ""}`}>
 
       {/* ================= NAVBAR ================= */}
 
@@ -39,18 +63,29 @@ export default function Dashboard() {
 
         <div className="jan-container navbar-inner">
 
+          {/* BRAND */}
+
           <div className="jan-brand">
-            <div className="brand-mark">JD</div>
+
+            <div className="brand-mark">
+              JD
+            </div>
 
             <div>
               <h2>JanDrishti</h2>
               <span>Civic Issue Platform</span>
             </div>
+
           </div>
+
+          {/* NAVIGATION */}
 
           <nav className="main-nav">
 
-            <button className="nav-link active">
+            <button
+              className="nav-link active"
+              onClick={() => navigate("/dashboard")}
+            >
               Dashboard
             </button>
 
@@ -61,32 +96,77 @@ export default function Dashboard() {
               Report Issue
             </button>
 
-            <button className="nav-link">
+            <button
+              className="nav-link"
+              onClick={() => navigate("/my-reports")}
+            >
               My Reports
             </button>
 
-            <button className="nav-link">
+            <button
+              className="nav-link"
+              onClick={() => navigate("/map")}
+            >
               Issue Map
             </button>
 
           </nav>
 
+          {/* NAVBAR ACTIONS */}
+
           <div className="navbar-actions">
 
-            <button className="search-button">
+            {/* DARK / LIGHT MODE */}
+
+            <button
+              className="theme-button"
+              onClick={toggleTheme}
+              aria-label={
+                darkMode
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+              title={
+                darkMode
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
+            >
+              {darkMode ? (
+                <Sun size={17} />
+              ) : (
+                <Moon size={17} />
+              )}
+            </button>
+
+            {/* SEARCH */}
+
+            <button
+              className="search-button"
+              aria-label="Search"
+            >
               <Search size={18} />
             </button>
 
+            {/* USER */}
+
             <div className="user-menu">
+
               <div className="user-avatar">
                 {userName.charAt(0).toUpperCase()}
               </div>
 
               <div className="user-info">
                 <strong>{userName}</strong>
-                <span>{profile?.role || "Citizen"}</span>
+
+                <span>
+                  {profile?.role || "Citizen"}
+                </span>
               </div>
+
             </div>
+
+            {/* LOGOUT */}
 
             <button
               className="logout-link"
@@ -109,6 +189,8 @@ export default function Dashboard() {
 
           <div className="jan-container hero-content">
 
+            {/* HERO TEXT */}
+
             <div className="hero-copy">
 
               <span className="hero-eyebrow">
@@ -122,8 +204,9 @@ export default function Dashboard() {
               </h1>
 
               <p>
-                Report local civic problems, track their progress,
-                and verify whether they were actually resolved.
+                Report local civic problems, track their
+                progress, and verify whether they were
+                actually resolved.
               </p>
 
               <div className="hero-buttons">
@@ -136,7 +219,10 @@ export default function Dashboard() {
                   Report an Issue
                 </button>
 
-                <button className="hero-secondary">
+                <button
+                  className="hero-secondary"
+                  onClick={() => navigate("/map")}
+                >
                   <MapPin size={18} />
                   Explore Issues
                 </button>
@@ -144,26 +230,39 @@ export default function Dashboard() {
               </div>
 
               <div className="hero-note">
+
                 <ShieldCheck size={15} />
+
                 Your report helps improve your local community.
+
               </div>
 
             </div>
 
-            {/* Civic visual */}
+            {/* CIVIC VISUAL */}
+
             <div className="hero-visual">
 
               <div className="city-card">
 
                 <div className="city-top">
-                  <span>LIVE CIVIC VIEW</span>
-                  <span className="live-dot">● LIVE</span>
+
+                  <span>
+                    LIVE CIVIC VIEW
+                  </span>
+
+                  <span className="live-dot">
+                    ● LIVE
+                  </span>
+
                 </div>
 
                 <div className="city-map">
 
                   <div className="map-road road-one"></div>
+
                   <div className="map-road road-two"></div>
+
                   <div className="map-road road-three"></div>
 
                   <div className="map-pin pin-one">
@@ -179,21 +278,33 @@ export default function Dashboard() {
                   </div>
 
                   <div className="map-location">
+
                     <LocateFixed size={17} />
+
                     Your area
+
                   </div>
 
                 </div>
 
                 <div className="map-footer">
+
                   <div>
-                    <strong>Nearby Issues</strong>
-                    <span>Community reports</span>
+
+                    <strong>
+                      Nearby Issues
+                    </strong>
+
+                    <span>
+                      Community reports
+                    </span>
+
                   </div>
 
                   <div className="nearby-count">
                     12
                   </div>
+
                 </div>
 
               </div>
@@ -210,48 +321,92 @@ export default function Dashboard() {
 
           <div className="jan-container stats-row">
 
+            {/* TOTAL */}
+
             <div className="stat-item">
+
               <div className="stat-symbol">
                 <FileText size={20} />
               </div>
 
               <div>
-                <span>Total Reports</span>
-                <strong>0</strong>
+
+                <span>
+                  Total Reports
+                </span>
+
+                <strong>
+                  0
+                </strong>
+
               </div>
+
             </div>
 
+            {/* IN PROGRESS */}
+
             <div className="stat-item">
+
               <div className="stat-symbol">
                 <Clock3 size={20} />
               </div>
 
               <div>
-                <span>In Progress</span>
-                <strong>0</strong>
+
+                <span>
+                  In Progress
+                </span>
+
+                <strong>
+                  0
+                </strong>
+
               </div>
+
             </div>
 
+            {/* RESOLVED */}
+
             <div className="stat-item">
+
               <div className="stat-symbol">
                 <CheckCircle2 size={20} />
               </div>
 
               <div>
-                <span>Resolved</span>
-                <strong>0</strong>
+
+                <span>
+                  Resolved
+                </span>
+
+                <strong>
+                  0
+                </strong>
+
               </div>
+
             </div>
 
+            {/* AWAITING VERIFICATION */}
+
             <div className="stat-item">
+
               <div className="stat-symbol">
                 <AlertTriangle size={20} />
               </div>
 
               <div>
-                <span>Awaiting Verification</span>
-                <strong>0</strong>
+
+                <span>
+                  Awaiting Verification
+                </span>
+
+                <strong>
+                  0
+                </strong>
+
               </div>
+
             </div>
 
           </div>
@@ -264,37 +419,48 @@ export default function Dashboard() {
 
           <div className="jan-container content-grid">
 
-            {/* MAP */}
+            {/* ================= MAP ================= */}
 
             <div className="content-panel map-panel">
 
               <div className="panel-heading">
 
                 <div>
+
                   <span className="panel-label">
                     COMMUNITY
                   </span>
 
-                  <h2>Issues near you</h2>
+                  <h2>
+                    Issues near you
+                  </h2>
 
                   <p>
                     Explore civic problems reported by citizens.
                   </p>
+
                 </div>
 
-                <button className="panel-action">
+                <button
+                  className="panel-action"
+                  onClick={() => navigate("/map")}
+                >
                   View map
                   <ArrowRight size={15} />
                 </button>
 
               </div>
 
+              {/* MAP */}
+
               <div className="large-map">
 
                 <div className="map-grid-lines"></div>
 
                 <div className="map-road big-road-one"></div>
+
                 <div className="map-road big-road-two"></div>
+
                 <div className="map-road big-road-three"></div>
 
                 <div className="large-pin pin-a">
@@ -321,7 +487,10 @@ export default function Dashboard() {
                   Streetlight
                 </div>
 
-                <button className="map-locate">
+                <button
+                  className="map-locate"
+                  onClick={() => navigate("/map")}
+                >
                   <LocateFixed size={16} />
                   Locate me
                 </button>
@@ -330,25 +499,32 @@ export default function Dashboard() {
 
             </div>
 
-            {/* RECENT REPORTS */}
+            {/* ================= RECENT REPORTS ================= */}
 
             <div className="content-panel reports-panel">
 
               <div className="panel-heading">
 
                 <div>
+
                   <span className="panel-label">
                     YOUR ACTIVITY
                   </span>
 
-                  <h2>Recent reports</h2>
+                  <h2>
+                    Recent reports
+                  </h2>
 
                   <p>
                     Keep track of your submitted issues.
                   </p>
+
                 </div>
 
-                <button className="panel-action">
+                <button
+                  className="panel-action"
+                  onClick={() => navigate("/my-reports")}
+                >
                   View all
                   <ArrowRight size={15} />
                 </button>
@@ -361,7 +537,9 @@ export default function Dashboard() {
                   <FileText size={25} />
                 </div>
 
-                <h3>No reports yet</h3>
+                <h3>
+                  No reports yet
+                </h3>
 
                 <p>
                   When you report a civic issue,
@@ -393,18 +571,27 @@ export default function Dashboard() {
         <div className="jan-container footer-inner">
 
           <div>
-            <strong>JanDrishti</strong>
+
+            <strong>
+              JanDrishti
+            </strong>
+
             <span>
               Report. Resolve. Verify.
             </span>
+
           </div>
 
           <div className="footer-right">
-            <span>SDG 11 · Sustainable Cities & Communities</span>
+
+            <span>
+              SDG 11 · Sustainable Cities & Communities
+            </span>
 
             <button onClick={handleLogout}>
               Sign out
             </button>
+
           </div>
 
         </div>
